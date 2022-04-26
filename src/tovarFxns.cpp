@@ -69,3 +69,56 @@ void takeItem(stack<Inventory>* stk)
     }
 }
 
+void display(stack<Inventory>* stk)
+{
+    for( int i{0}; i < stk->size(); i++)
+    {
+        Inventory curInventory = stk->top();
+        
+        cout << "Item #" << i+1 << endl;
+        cout << "Serial Number: " << curInventory.getSerial() << endl;
+        cout << "Lot Number: " << curInventory.getLot() << endl;
+        cout << "Manufacturing Date: " << curInventory.getDate() << endl;
+        cout << endl;
+        stk->pop();
+    }
+}
+
+void parkCameras()
+{
+    cout << "======================================" << endl;
+    for( int i{0}; i < 5; i++)
+    {
+        ParkSection section = sections[i];
+        cout << "Section " << i << ": " << section.sectionName << endl;
+        section.camera.displayFeed();
+        cout << "======================================" << endl;
+    }
+    
+}
+
+void getGenes()
+{
+    std::cout << "Gene Sequence:" << std::endl;
+    std::cout << "======================================" << std::endl;
+    
+    // give the rand() fxn a seed. not initially seen in binary possible vuln
+    srand(time(NULL));
+    // "TGCA" hex encoded
+    int TGCA = 0x54474341;
+    for( int i{0}; i < 200; i++)
+    {
+        for( int j{0}; j < 5; j++)
+        {
+            for( int k{0}; k < 10; k++)
+            {
+                int random = rand();
+                char* off = (char*)(&TGCA) + (random % 4) ;
+                std::cout << char(*off);
+            }
+            std::cout << "\t";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "===================================================" << std::endl;
+}

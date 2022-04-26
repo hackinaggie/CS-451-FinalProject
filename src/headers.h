@@ -5,6 +5,7 @@
 #include <list>
 #include <map>
 #include <stack>
+#include <math.h>
 
 using namespace std;
 
@@ -38,3 +39,6 @@ Entry visitorDoor;
 // VAULT 
 Entry vaultDoor;
 Camera vaultCamera;
+
+// PARK SECTIONS. 144, 232, 320, 408 called in getLocation. 48 & 0 in parkCameras. 
+ParkSection sections[5];

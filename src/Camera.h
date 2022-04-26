@@ -8,7 +8,7 @@ class Camera
     string feed;         // off 0x28
 
     // str constr
-    Camera(string input);
+    Camera(string input="");
 
     // display feed
     void displayFeed();

@@ -1,8 +1,11 @@
 #pragma once
 #include "headers.h"
 
+// size 0x40, last element at 0x38
 class ParkSection
-{   // TODO: Not sure about exact order of these (lat/lon then minutes? or lat vars then lon vars?)
+{   
+    public:
+    // TODO: Not sure about exact order of these (lat/lon then minutes? or lat vars then lon vars?)
     double lat;
     double lat_min;     // off 0x08
     double lon;         // off 0x10
@@ -25,5 +28,5 @@ ParkSection::ParkSection(string name, double d1, double d2, double d3, double d4
     lon_min = d4;
 
     // TODO the 'feed' thing is a strong guess. also is this how u do paramaterized constr?
-    camera = Camera(feed);
+    camera.feed = feed;
 }
