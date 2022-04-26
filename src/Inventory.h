@@ -4,7 +4,7 @@
 class Inventory
 {
     long serialNum;    
-    int lot;         // off 0x08
+    int lot;                    // off 0x08
     string manufactureDate;     // off 0x10
 
     public:
