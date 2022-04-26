@@ -19,8 +19,8 @@ using namespace std;
 #include "ParkSection.h"
 
 // FLAGS
-char go_code;
-char loggedIn;
+bool go_code;
+bool loggedIn;
 
 // IMAGES, FOR CAMERAS
 string img_raptor, img_static, img_testtube, img_trex, img_triceratops, img_visitor_center;
