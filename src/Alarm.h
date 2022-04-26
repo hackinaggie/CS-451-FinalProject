@@ -26,7 +26,8 @@ class Alarm
     void setMessage(string input);
 };
 
-Alarm::Alarm(int input){
+Alarm::Alarm(int input)
+{
     // eSys default constr
     arr[0] = "SEVERE WEATHER";
     arr[1] = "THE FIRE ALARM HAS BEEN ACTIVATED. EVACUATE IMMEDIATELY";
@@ -54,7 +55,7 @@ void Alarm::printMessage()
     cout << "*******************************************************" << endl;
 }
 
-void Alarm::setMessage(string input){
-    // register 34 stuff
-    msg = input; // CONCAT44(in_register, input)
+void Alarm::setMessage(string input)
+{
+    msg = input; 
 }

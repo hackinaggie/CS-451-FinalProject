@@ -45,6 +45,5 @@ void Camera::displayFeed(){
 
 void Camera::refreshFeed(string newFeed)
 {
-    // weird register stuff as well
     feed = newFeed;
 }

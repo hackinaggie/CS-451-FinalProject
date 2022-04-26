@@ -52,7 +52,7 @@ void Entry::lock()
         electricOn = eSys.isOn();
         if( electricOn )
         {
-            this->locked = 1;
+            this->locked = true;
         }
     }
 }
@@ -79,7 +79,7 @@ void Entry::unlock()
         electricOn = eSys.isOn();
         if( electricOn )
         {
-            this->locked = 1;
+            this->locked = false;
         }
     }
 }
