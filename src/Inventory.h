@@ -5,7 +5,7 @@ class Inventory
 {
     long serialNum;    
     int lot;         // off 0x08
-    string date;     // off 0x10
+    string manufactureDate;     // off 0x10
 
     public:
     // simple constructor
@@ -26,7 +26,7 @@ Inventory::Inventory(long in_serial, int in_lot, string in_date)
 {
     serialNum = in_serial;
     lot = in_serial;
-    date = in_date;
+    manufactureDate = in_date;
 }
 
 Inventory::Inventory(Inventory* cp)
@@ -37,12 +37,12 @@ Inventory::Inventory(Inventory* cp)
 
 void Inventory::setDate(string cp)
 {
-    date = cp;
+    manufactureDate = cp;
 }
 
 string Inventory::getDate()
 {
-    return date;
+    return manufactureDate;
 }
 
 void Inventory::setLot(int cp)

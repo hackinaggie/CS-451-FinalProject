@@ -4,6 +4,7 @@
 #include <string.h>
 #include <list>
 #include <map>
+#include <stack>
 
 using namespace std;
 

@@ -39,3 +39,33 @@ string logdata()
     out += "STORE THIS INFORMATION FOR YOUR RECORDS\n";
     return out;
 }
+
+void addItem(stack<Inventory>* stk)
+{
+    long inSerial;
+    int inLot;
+    string inDate;
+
+    cout << "Enter the following information:" << endl;
+    
+    cout << " - Serial Number: ";
+    cin >> inSerial;
+
+    cout << " - Lot Number: ";
+    cin >> inLot;
+
+    cout << " - Manufacturing Date: ";
+    cin >> inDate;
+
+    Inventory newInv(inSerial, inLot, inDate);
+    stk->push(newInv);
+}
+
+void takeItem(stack<Inventory>* stk)
+{
+    if( stk->size() != 0 )
+    {
+        stk->pop();
+    }
+}
+
