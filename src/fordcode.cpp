@@ -7,28 +7,64 @@
 
 using namespace std;
 
-bool go_code = false;
+void goCode()
+{
+    go_code = 1;
 
-string admin_pass = "Mr. Goodbytes", admin_user = "NEDRY";
-bool loggedin = false;
+    // vault
+    vaultDoor.unlock();
+    vaultCamera.refreshFeed(img_static);
 
-static Alarm *visitorAlarm, *parkAlarm, *labAlarm;
-Camera *visitorCamera, *vaultCamera;
-Entry *visitorDoor, *vaultDoor;
+    // labAlarm
+    labAlarm.setMessage("INVENTORY MISSING");
 
+    // visitor center
+    visitorDoor.unlock();
+    visitorCamera.refreshFeed(img_static);
+    visitorAlarm.setMessage("ICE CREAM MELTING");
+
+    // park alarm
+    parkAlarm.setMessage("ASSET OUT OF CONTAINMENT");
+}
+
+//check if name and passw are correct
 bool validate(string uname, string passw)
 {
     if (uname == admin_user)
     {
         if (passw == admin_pass)
         {
-            loggedin = true;
+            loggedIn = true;
         }
     }
-    return loggedin;
+    return loggedIn;
 }
 
-void lab_controls() {
+void lab_controls()
+{
+    cout << "LAB CONTROLS" << endl;
+    cout << "alarmstatus --lab" << endl;
+    cout << "unlockdoor --lab" << endl;
+    cout << "lockdoor --lab" << endl;
+    cout << "camerastatus --lab" << endl;
+    cout << "genesummary --lab" << endl;
+}
+
+string logdata()
+{
+    // passes in the desired return variable's address in RDI. believe that's just compiler optimization
+    string out = "THANK YOU FOR USING THE INGEN SYSTEM\n";
+    out += "WE APPRECIATE YOUR CONTRIBUTIONS\n";
+    out += "TRY AGAIN LATER IF YOU WANT\n";
+    out += "STORE THIS INFORMATION FOR YOUR RECORDS\n";
+    return out;
+}
+
+void visitor_controls() {
+
+}
+
+void park_controls() {
     
 }
 
@@ -55,11 +91,11 @@ void menus()
         {
             cout << "Checking alarms ... " << endl;
             cout << "Lab:" << endl;
-            Alarm::printMessage(labAlarm);
+            labAlarm.printMessage();
             cout << "Visitor Center:" << endl;
-            Alarm::printMessage(visitorAlarm);
+            visitorAlarm.printMessage();
             cout << "Park:" << endl;
-            Alarm::printMessage(parkAlarm);
+            parkAlarm.printMessage();
         }
         else
         {
@@ -107,10 +143,7 @@ int main()
         outfile << "TIME: " << time.tv_sec << endl;
         outfile << "USER: " << uname << endl;
         outfile << "PASS: " << passw << endl;
-        outfile << "THANK YOU FOR USING THE INGEN SYSTEM" << endl;
-        outfile << "WE APPRECIATE YOUR CONTRIBUTIONS" << endl;
-        outfile << "TRY AGAIN LATER IF YOU WANT" << endl;
-        outfile << "STORE THIS INFORMATION FOR YOUR RECORDS" << endl;
+        outfile << logdata();
         if (!validate(uname, passw))
         {
             attempts++;
@@ -152,19 +185,19 @@ int main()
                 // visitor center
                 if (input == "alarmstatus --vc")
                 {
-                    visitorAlarm->printMessage();
+                    visitorAlarm.printMessage();
                 }
                 if (input == "unlockdoor --vc")
                 {
-                    visitorDoor->unlock();
+                    visitorDoor.unlock();
                 }
                 if (input == "lockdoor --vc")
                 {
-                    visitorDoor->lock();
+                    visitorDoor.lock();
                 }
                 if (input == "camerastatus --vc")
                 {
-                    visitorCamera->displayFeed();
+                    visitorCamera.displayFeed();
                 }
                 if (input == "inventorysummary --vc")
                 {
@@ -173,7 +206,7 @@ int main()
                 // park
                 if (input == "alarmstatus --park")
                 {
-                    parkAlarm->printMessage();
+                    parkAlarm.printMessage();
                 }
                 if (input == "camerastatus --park")
                 {
@@ -186,19 +219,19 @@ int main()
                 // lab
                 if (input == "alarmstatus --lab")
                 {
-                    labAlarm->printMessage();
+                    labAlarm.printMessage();
                 }
                 if (input == "unlockdoor --lab")
                 {
-                    vaultDoor->unlock();
+                    vaultDoor.unlock();
                 }
                 if (input == "lockdoor --lab")
                 {
-                    vaultDoor->lock();
+                    vaultDoor.lock();
                 }
                 if (input == "camerastatus --lab")
                 {
-                    vaultCamera->displayFeed();
+                    vaultCamera.displayFeed();
                 }
                 if (input == "genesummary --lab")
                 {
