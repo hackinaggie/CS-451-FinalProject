@@ -2,7 +2,7 @@
 
 void goCode()
 {
-    go_code = 1;
+    go_code = true;
 
     // vault
     vaultDoor.unlock();
@@ -120,5 +120,5 @@ void getGenes()
         }
         std::cout << std::endl;
     }
-    std::cout << "===================================================" << std::endl;
+    std::cout << "======================================" << std::endl;
 }
