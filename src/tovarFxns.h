@@ -16,8 +16,6 @@ void addItem(stack<Inventory> stk);
 // checks if the stack isn't empty, then calls pop on it
 void takeItem(stack<Inventory>* stk);
 
-//display(), parkCameras(), getGenes()
-
 // display the passed in stk. REMOVES all elements from it as it displays them.
 void display(stack<Inventory>* stk);
 

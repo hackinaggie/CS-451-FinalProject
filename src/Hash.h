@@ -8,8 +8,8 @@ class Hash
     class MyItem
     {
         public:
-        int int_onee;
-        char cStr[20];  // off 0x04
+        int index;
+        char hash[20];  // off 0x04
         int int_twoo;// off 0x18 20 bytes off?
         MyItem(int p1, string p2, int p3);
     };
@@ -25,19 +25,18 @@ class Hash
     void deleteItem(int p1);
     // hash the input and return a long
     long hashFunction(int p1);
-    // TODO iterate size times and print the whole list of MyItems
+    // iterate size times and print the whole list of MyItems
     void displayHash();
 };
 
-// TODO: Vuln: possible cStr only 20 bytes, constr don't check sizeof p2
+// TODO: Vuln: possible hash only 20 bytes, constr don't check sizeof p2
 Hash::MyItem::MyItem(int p1, string p2, int p3)
 {
-    int_onee = p1;
-    strcpy(cStr, p2.c_str());
+    index = p1;
+    strcpy(hash, p2.c_str());
     int_twoo = p3;
 }
 
-// TODO: Real Iffy on this
 Hash::Hash(int wantSz)
 {
     size = wantSz;
@@ -60,7 +59,7 @@ void Hash::deleteItem(int p1)
 
     while(l_beg != l_end)
     {
-        if(p1 == (*l_beg).int_onee)
+        if(p1 == (*l_beg).index)
         {
             break;
         }
@@ -94,7 +93,7 @@ void Hash::displayHash()
         while(l_beg != l_end)
         {
             MyItem item = *l_beg;
-            cout << " --> " << item.cStr << "\t" << item.int_twoo;
+            cout << " --> " << item.hash << "\t" << item.int_twoo;
             l_beg++;
         }
         cout << endl;
