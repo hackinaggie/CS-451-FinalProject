@@ -1,8 +1,3 @@
-#include <string>
-#include <ostream>
-#include <fstream>
-#include <iostream>
-#include <sys/time.h>
 #include "headers.h"
 
 using namespace std;
@@ -60,12 +55,106 @@ string logdata()
     return out;
 }
 
-void visitor_controls() {
+void takeItem(stack<Inventory> * s) {
+    if(s->size() > 0) {
+        s->pop();
+    }
+}
 
+void addItem(stack<Inventory> * s) {
+    cout << "Enter the following information:" << endl;
+    cout << " - Serial Number: " << flush;
+    long sn;
+    cin >> sn;
+    cout << " - Lot Number: " << flush;
+    int ln;
+    cin >> ln;
+    cout << " - Manufacturing Date: " << flush;
+    string date;
+    cin >> date;
+    Inventory inv(sn, ln, date);
+    s->push(inv);
+}
+
+void display(stack<Inventory> * s) {
+    int itemNo = 0;
+    while(s->size() > 0) {
+        Inventory inv = s->top();
+        cout << "Item #" << itemNo + 1 << endl;
+        cout << "Serial Number: " << inv.getSerial() << endl;
+        cout << "Lot Number: " << inv.getLot() << endl;
+        cout << "Manufacturing Date: " << inv.getDate() << endl;
+        s->pop();
+        itemNo++;
+    }
+}
+
+void visitor_controls() {
+    cout << "VISITOR CONTROLS" << endl;
+    Alarm a("All clear");
+    Entry et1;
+    Entry et2;
+    Entry et3;
+
+    cout << "Select from the following" << endl;
+    cout << "[1] - Alarm System\n[2] - Entry Controls\n[3] - Cameras\n[4] - Inventory\n[0] - QUIT\n";
+    int intIn;
+    cin >> intIn;
+    switch(intIn) {
+        case 0:
+            break;
+        case 1:
+            a.printMessage();
+            break;
+        case 2:
+            cout << "Door Status" << endl;
+            if(et1.isOpen() || et2.isOpen() || et3.isOpen()) {
+                cout << "Area unsecure, please lock all doors" << endl;
+            }
+            cout << "Current Entry Controls" << endl;
+            cout << "[U] - Unlock all doors\n [L] - Lock all doors" << endl;
+            char charIn;
+            cin >> charIn;
+            if(charIn == 'U') {
+                cout << "Please enter the password: " << flush;
+                string stringIn;
+                cin >> stringIn;
+                electricalSystem.turnOff(stringIn);
+                cout << "All doors unlocked, proceed with caution" << endl;
+            } else {
+                cout << "AN ERROR HAS OCCURED" << endl;
+                a.printMessage();
+            }
+            break;
+        case 3:
+            visitorCamera.displayFeed();
+            break;
+        case 4:
+            stack<Inventory> s;
+            intIn = 0;
+            while(intIn != 3) {
+                cout << "Options" << endl;
+                cout << "-------" << endl;
+                cout << "1. Add part" << endl;
+                cout << "2. Take part" << endl;
+                cout << "3. Quit" << endl;
+                cout << "Would you like to enter an item into inventory?" << endl;
+                cout << "Choice: " << flush;
+                cin >> intIn;
+                if (intIn == 1) {
+                    addItem(&s);
+                } else if (intIn == 2) {
+                    takeItem(&s);
+                }
+            }
+            display(&s);
+            cout << "EXITING VISITOR CONTROLS" << endl;
+            break;
+    }
 }
 
 void park_controls() {
-    
+
 }
 
 void menus()

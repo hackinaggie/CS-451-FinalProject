@@ -1,11 +1,14 @@
 #pragma once 
 
 #include <iostream>
-#include <string.h>
 #include <list>
 #include <map>
 #include <stack>
 #include <math.h>
+#include <string.h>
+#include <ostream>
+#include <fstream>
+#include <sys/time.h>
 
 using namespace std;
 
@@ -55,3 +58,6 @@ Entry vaultDoor;
 ParkSection sections[]{ {"Perimeter", -25.0,25.0,-25.0,25.0, NULL}, {"Dilophosaurus Paddock", 0.0,25.0,0.0,25.0, img_visitor_center}, \
                         {"T-Rex Paddock", 0.0,25.0,-25.0,0.0, img_trex },   {"Triceratops Paddock", -25.0,0.0,-25.0,0.0, img_triceratops}, \
                         {"Raptor Paddock", -25.0,0.0,0.0,25.0, img_raptor} };
+
+// ELECTRICAL SYSTEM
+ElectricalSystem electricalSystem();
