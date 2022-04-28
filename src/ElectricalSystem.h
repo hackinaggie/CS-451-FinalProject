@@ -6,7 +6,7 @@ class ElectricalSystem
     string passcode;
     bool on;            // off 0x20
 
-    public:
+public:
     // constr
     ElectricalSystem();
     // check if on
@@ -21,7 +21,7 @@ class ElectricalSystem
 ElectricalSystem::ElectricalSystem()
 {
     // passcode empty constr
-    on = 1;
+    on = true;
 }
 
 bool ElectricalSystem::isOn(){

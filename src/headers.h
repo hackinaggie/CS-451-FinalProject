@@ -60,4 +60,4 @@ ParkSection sections[]{ {"Perimeter", -25.0,25.0,-25.0,25.0, NULL}, {"Dilophosau
                         {"Raptor Paddock", -25.0,0.0,0.0,25.0, img_raptor} };
 
 // ELECTRICAL SYSTEM
-ElectricalSystem electricalSystem();
+ElectricalSystem electricalSystem;

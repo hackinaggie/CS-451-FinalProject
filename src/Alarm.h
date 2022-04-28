@@ -34,7 +34,7 @@ Alarm::Alarm(int input)
     arr[2] = "BREACH DETECTED";
     arr[3] = "SYSTEM FAILURE";
     arr[4] = "ASSETS OUT OF CONTAINTMENT. THIS IS NOT A DRILL.";
-    msg = arr[input];
+    msg = arr[input % 5];
 }
 
 Alarm::Alarm(string input)

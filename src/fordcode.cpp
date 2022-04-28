@@ -154,7 +154,46 @@ void visitor_controls() {
 }
 
 void park_controls() {
+    map<string, pair<int, int>> m;
+    cout << "PARK CONTROLS" << endl;
+    Alarm parkAlarm(5);
+    printf("%s  \n", "Select from the folowing");
+    cout << "[1] - Alarm System \n[2] - Entry Controls \n [3] - Car Tracking \n[4] - Inventory\n[0] - QUIT\n";
+    int intIn;
+    cin >> intIn;
+    for(int i = 0; i < 1; i++) {
+        if(intIn == 1) {
+            parkAlarm.printMessage();
+        } else if(intIn == 2) {
+            cout << "Current Status: " << endl;
+                cout << "Section 1 secure" << endl;
+                cout << "Section 2 secure" << endl;
+                cout << "Section 3 secure" << endl;
+                cout << "Section 4 secure" << endl;
+                cout << "Park perimeter secure" << endl;
+        } else if(intIn == 3) {
+            //todo
+        } else if(intIn != 4) {
+            cout << "EXITING PARK CONTROLS" << endl;
+            return;
+        } else {
+            Asset dino1("Dilophosaurus", 23, 4);
+            Asset dino2("Dilophosaurus", 21, 16);
+            Asset dino3("Dilophosaurus", 12, 6);
+            cout << "Assets 1-3 can be found in this section: " << dino1.getLocation() << endl;
+            Asset dino4("T-Rex", 15, -17);
+            cout << "Asset 4 can be found in this section: " << dino4.getLocation() << endl;
+            Asset dino5("Triceratops", -12, -12);
+            Asset dino6("Triceratops", -22, -22);
+            cout << "Assets 5-6 can be found in this section: " << dino5.getLocation() << endl;
+            Asset dino7("Raptor", -18, 9);
+            Asset dino8("Raptor", -18, 7);
+            Asset dino9("Raptor", -16, 5);
+            Asset dino10("Raptor", -12, 9);
+            cout << "Assets 7-10 can be found in this section: " << dino7.getLocation() << endl;
 
+        }
+    }
 }
 
 void menus()
