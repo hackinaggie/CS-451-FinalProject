@@ -1,4 +1,4 @@
-#include "headers.h"
+#include "Hash.h"
 
 Hash::MyItem::MyItem(int p1, string p2, int p3)
 {

@@ -1,4 +1,4 @@
-#include "headers.h"
+#include "Alarm.h"
 
 Alarm::Alarm(int input)
 {

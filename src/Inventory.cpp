@@ -1,4 +1,4 @@
-#include "headers.h"
+#include "Inventory.h"
 
 
 Inventory::Inventory(long in_serial, int in_lot, string in_date)

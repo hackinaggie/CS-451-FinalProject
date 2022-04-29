@@ -1,5 +1,10 @@
 #pragma once
 
+#include <iostream>
+#include "ElectricalSystem.h"
+
+using namespace std;
+
 class Camera
 {
     public:

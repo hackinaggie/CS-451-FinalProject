@@ -1,5 +1,9 @@
 #pragma once
 
+#include "Fence.h"
+#include "Entry.h"
+#include "Camera.h"
+
 // size 0x40, last element at 0x38
 class ParkSection
 {   

@@ -1,5 +1,11 @@
 #pragma once
 
+#include <iostream>
+#include <list>
+#include <string.h>
+
+using namespace std;
+
 class Hash
 {
     public:

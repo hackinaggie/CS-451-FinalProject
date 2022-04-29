@@ -1,5 +1,12 @@
 #pragma once
 
+
+#include <iostream>
+#include <string.h>
+#include "ElectricalSystem.h"
+
+using namespace std;
+
 class Entry
 {
     ElectricalSystem eSys;

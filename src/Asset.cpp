@@ -1,4 +1,6 @@
-#include "headers.h"
+#include "Asset.h"
+
+extern ParkSection sections[];
 
 string Asset::getLocation()
 {

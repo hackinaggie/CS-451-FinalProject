@@ -1,4 +1,4 @@
-#include "headers.h"
+#include "Camera.h"
 
 Camera::Camera(string input)
 {
