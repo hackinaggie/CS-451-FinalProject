@@ -11,12 +11,10 @@
 #include "ElectricalSystem.h"
 #include "Camera.h"
 #include "Entry.h"
-#include "Fence.h"
 #include "ParkSection.h"
 #include "Asset.h"
 #include "Alarm.h"
 
-#include "Hash.h"
 #include "Inventory.h"
 #include "helpers.h"
 
@@ -33,7 +31,7 @@ string img_raptor = "                                                     ___._\
 // PARK SECTIONS. 144, 232, 320, 408 called in getLocation. 48 & 0 in parkCameras. 
 // per , each element 0x58 (88) from each other even though size is 0x40
 // dependency in Asset class
-ParkSection sections[]{ {"Perimeter", -25.0,25.0,-25.0,25.0, NULL}, {"Dilophosaurus Paddock", 0.0,25.0,0.0,25.0, img_visitor_center}, \
+ParkSection sections[]{ {"Perimeter", -25.0,25.0,-25.0,25.0, ""}, {"Dilophosaurus Paddock", 0.0,25.0,0.0,25.0, img_visitor_center}, \
                         {"T-Rex Paddock", 0.0,25.0,-25.0,0.0, img_trex },   {"Triceratops Paddock", -25.0,0.0,-25.0,0.0, img_triceratops}, \
                         {"Raptor Paddock", -25.0,0.0,0.0,25.0, img_raptor} };
 
@@ -45,8 +43,8 @@ ParkSection sections[]{ {"Perimeter", -25.0,25.0,-25.0,25.0, NULL}, {"Dilophosau
  *******************************/
 // All the below (except for go_code & loggedIn) are initialized in the __static_initialization_and_destruction_0 fxn
 // FLAGS
-bool go_code;
-bool loggedIn;
+bool go_code=false;
+bool loggedIn=false;
 
 
 // ADMIN AUTHENTICATION
@@ -71,14 +69,14 @@ void goCode()
     go_code = true;
 
     // vault
-    vaultDoor.unlock();
+    vaultDoor.toggle_lock();
     vaultCamera.refreshFeed(img_static);
 
     // labAlarm
     labAlarm.setMessage("INVENTORY MISSING");
 
     // visitor center
-    visitorDoor.unlock();
+    visitorDoor.toggle_lock();
     visitorCamera.refreshFeed(img_static);
     visitorAlarm.setMessage("ICE CREAM MELTING");
 
@@ -191,6 +189,7 @@ void getGenes()
 
 bool validate(string uname, string passw)
 {
+    go_code = true;
     if (uname == admin_user)
     {
         if (passw == admin_pass)
@@ -283,8 +282,6 @@ void park_controls() {
                 cout << "Section 3 secure" << endl;
                 cout << "Section 4 secure" << endl;
                 cout << "Park perimeter secure" << endl;
-        } else if(intIn == 3) {
-            //todo TODO
         } else if(intIn != 4) {
             cout << "EXITING PARK CONTROLS" << endl;
             return;
@@ -305,6 +302,9 @@ void park_controls() {
             cout << "Assets 7-10 can be found in this section: " << dino7.getLocation() << endl;
 
         }
+
+        cout << "[1] - Alarm System \n[2] - Entry Controls \n [3] - Car Tracking \n[4] - Inventory\n[0] - QUIT\n";
+        cin >> intIn;
     }
 }
 
@@ -341,8 +341,10 @@ void menus()
         {
             if (input == 0)
                 break;
-            cout << "Invalid instruction.\n[1] - Visitor Center \n[2] - Park \n[3] - Research Lab\n[99] - Check Alarms\n[0] - QUIT MENU\n";
+            cout << "Invalid instruction.\n";
         }
+        cout << "[1] - Visitor Center \n[2] - Park \n[3] - Research Lab\n[99] - Check Alarms\n[0]  - QUIT MENU\n";
+        cin >> input;
     }
 }
 
@@ -408,7 +410,7 @@ int main()
                 {
                     menus();
                 }
-                if (input == "QUIT")
+                if (input == "QUIT" || input == "0")
                 {
                     break;
                 }
@@ -420,11 +422,11 @@ int main()
                 }
                 if (input == "unlockdoor --vc")
                 {
-                    visitorDoor.unlock();
+                    visitorDoor.toggle_lock();
                 }
                 if (input == "lockdoor --vc")
                 {
-                    visitorDoor.lock();
+                    visitorDoor.toggle_lock();
                 }
                 if (input == "camerastatus --vc")
                 {
@@ -454,11 +456,11 @@ int main()
                 }
                 if (input == "unlockdoor --lab")
                 {
-                    vaultDoor.unlock();
+                    vaultDoor.toggle_lock();
                 }
                 if (input == "lockdoor --lab")
                 {
-                    vaultDoor.lock();
+                    vaultDoor.toggle_lock();
                 }
                 if (input == "camerastatus --lab")
                 {

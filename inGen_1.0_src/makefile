@@ -6,13 +6,13 @@ OBJ = Alarm.o Asset.o Camera.o ElectricalSystem.o Entry.o Hash.o Inventory.o mai
 %.o: %.c $(INCLUDE)
 	$(CC) -c -o $@ %< $(FLAGS)
 
-inGen_2.0: $(OBJ)
+inGen_1.0: $(OBJ)
 	$(CC) *.o -o $@ $(FLAGS)
 
-all: inGen_2.0
+all: inGen_1.0
 
-run: inGen_2.0
-	./inGen_2.0
+run: inGen_1.0
+	./inGen_1.0
 
 clean:
-	rm *.o inGen_2.0
+	rm *.o inGen_1.0

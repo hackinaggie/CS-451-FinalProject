@@ -3,6 +3,7 @@
 ElectricalSystem::ElectricalSystem()
 {
     // passcode empty constr
+    passcode = "howdy";
     on = true;
 }
 
