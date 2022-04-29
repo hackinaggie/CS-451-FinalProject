@@ -57,8 +57,6 @@ void Entry::lock()
     }
 }
 
-// TODO: Vuln: same as above
-// TODO: Ineff: same as above, reused code
 void Entry::unlock()
 {
     char readIn[5];
@@ -66,7 +64,7 @@ void Entry::unlock()
     int cmpHowdy{0};
 
     cout << "Enter passcode: ";
-    fgets(readIn, 10, stdin);       // TODO: mention that readIn size 5, reads up to 10
+    fgets(readIn, 10, stdin);
 
     cmpHowdy = strcmp(readIn, "howdy");
 

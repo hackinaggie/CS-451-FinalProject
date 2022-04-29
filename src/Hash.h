@@ -29,11 +29,10 @@ class Hash
     void displayHash();
 };
 
-// TODO: Vuln: possible hash only 20 bytes, constr don't check sizeof p2
 Hash::MyItem::MyItem(int p1, string p2, int p3)
 {
     index = p1;
-    strcpy(hash, p2.c_str());
+    strcpy(hash, p2.c_str()); // strncpy
     int_twoo = p3;
 }
 
