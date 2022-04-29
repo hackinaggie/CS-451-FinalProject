@@ -1,5 +1,4 @@
 #pragma once
-#include "headers.h"
 
 // opens vault & visitor section doors, sets cams to statics, updates some alarms to bad things.
 void goCode();
@@ -24,3 +23,15 @@ void parkCameras();
 
 // print MANY random sequences of "TAGC" variants
 void getGenes();
+
+// implement user options for the Visitor, Park, Lab, and Alarms sections
+void menus();
+
+// implement visitor section options: Alarms, Entries, Cameras, and Inventory
+void visitor_controls();
+
+// implement park section options: Alarms, Entries, Car Tracking, and Inventory
+void park_controls();
+
+// determine if user input is equal to required admin_pass & admin_user
+bool validate(string uname, string passw);

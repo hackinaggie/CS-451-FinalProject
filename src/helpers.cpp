@@ -1,10 +1,8 @@
 #include "headers.h"
 
-using namespace std;
-
 void goCode()
 {
-    go_code = 1;
+    go_code = true;
 
     // vault
     vaultDoor.unlock();
@@ -20,19 +18,6 @@ void goCode()
 
     // park alarm
     parkAlarm.setMessage("ASSET OUT OF CONTAINMENT");
-}
-
-//check if name and passw are correct
-bool validate(string uname, string passw)
-{
-    if (uname == admin_user)
-    {
-        if (passw == admin_pass)
-        {
-            loggedIn = true;
-        }
-    }
-    return loggedIn;
 }
 
 void lab_controls()
@@ -55,38 +40,99 @@ string logdata()
     return out;
 }
 
-void takeItem(stack<Inventory> * s) {
-    if(s->size() > 0) {
-        s->pop();
-    }
-}
+void addItem(stack<Inventory>* stk)
+{
+    long inSerial;
+    int inLot;
+    string inDate;
 
-void addItem(stack<Inventory> * s) {
     cout << "Enter the following information:" << endl;
-    cout << " - Serial Number: " << flush;
-    long sn;
-    cin >> sn;
-    cout << " - Lot Number: " << flush;
-    int ln;
-    cin >> ln;
-    cout << " - Manufacturing Date: " << flush;
-    string date;
-    cin >> date;
-    Inventory inv(sn, ln, date);
-    s->push(inv);
+    
+    cout << " - Serial Number: ";
+    cin >> inSerial;
+
+    cout << " - Lot Number: ";
+    cin >> inLot;
+
+    cout << " - Manufacturing Date: ";
+    cin >> inDate;
+
+    Inventory newInv(inSerial, inLot, inDate);
+    stk->push(newInv);
 }
 
-void display(stack<Inventory> * s) {
-    int itemNo = 0;
-    while(s->size() > 0) {
-        Inventory inv = s->top();
-        cout << "Item #" << itemNo + 1 << endl;
-        cout << "Serial Number: " << inv.getSerial() << endl;
-        cout << "Lot Number: " << inv.getLot() << endl;
-        cout << "Manufacturing Date: " << inv.getDate() << endl;
-        s->pop();
-        itemNo++;
+void takeItem(stack<Inventory>* stk)
+{
+    if( stk->size() != 0 )
+    {
+        stk->pop();
     }
+}
+
+void display(stack<Inventory>* stk)
+{
+    for( int i{0}; i < stk->size(); i++)
+    {
+        Inventory curInventory = stk->top();
+        
+        cout << "Item #" << i+1 << endl;
+        cout << "Serial Number: " << curInventory.getSerial() << endl;
+        cout << "Lot Number: " << curInventory.getLot() << endl;
+        cout << "Manufacturing Date: " << curInventory.getDate() << endl;
+        cout << endl;
+        stk->pop();
+    }
+}
+
+void parkCameras()
+{
+    cout << "======================================" << endl;
+    for( int i{0}; i < 5; i++)
+    {
+        ParkSection section = sections[i];
+        cout << "Section " << i << ": " << section.sectionName << endl;
+        section.camera.displayFeed();
+        cout << "======================================" << endl;
+    }
+    
+}
+
+void getGenes()
+{
+    std::cout << "Gene Sequence:" << std::endl;
+    std::cout << "======================================" << std::endl;
+    
+    // give the rand() fxn a seed. not initially seen in binary possible vuln
+    srand(time(NULL));
+    // "TGCA" hex encoded
+    int TGCA = 0x54474341;
+    for( int i{0}; i < 200; i++)
+    {
+        for( int j{0}; j < 5; j++)
+        {
+            for( int k{0}; k < 10; k++)
+            {
+                int random = rand();
+                char* off = (char*)(&TGCA) + (random % 4) ;
+                std::cout << char(*off);
+            }
+            std::cout << "\t";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "======================================" << std::endl;
+}
+
+bool validate(string uname, string passw)
+{
+    if (uname == admin_user)
+    {
+        if (passw == admin_pass)
+        {
+            loggedIn = true;
+        }
+    }
+    return loggedIn;
 }
 
 void visitor_controls() {
@@ -232,141 +278,4 @@ void menus()
             cout << "Invalid instruction.\n[1] - Visitor Center \n[2] - Park \n[3] - Research Lab\n[99] - Check Alarms\n[0] - QUIT MENU\n";
         }
     }
-}
-
-void parkCameras()
-{
-}
-
-void getGenes()
-{
-}
-
-int main()
-{
-    int attempts = 0;
-
-    cout << "Welcome to InGen" << endl;
-    cout << "Proud leader in Genetics since 1990" << endl
-         << endl;
-
-    ofstream outfile("sessionlog.txt");
-
-    while (true)
-    {
-        if (attempts > 2)
-        {
-            cout << "TOO MANY ATTEMPTS" << endl;
-            break;
-        }
-
-        string uname, passw;
-        timeval time;
-
-        cout << "User Name: ";
-        cin >> uname;
-        cout << "Password: ";
-        cin >> passw;
-        gettimeofday(&time, NULL);
-        outfile << "TIME: " << time.tv_sec << endl;
-        outfile << "USER: " << uname << endl;
-        outfile << "PASS: " << passw << endl;
-        outfile << logdata();
-        if (!validate(uname, passw))
-        {
-            attempts++;
-            continue;
-        }
-        else
-        {
-            cout << "Successfully logged in!" << endl;
-            cout << "Enter HELP at any time to see menus and QUIT to end program" << endl;
-
-            string input;
-            if (go_code)
-            { // dead-end code
-                for (int i = 0; i < 3; i++)
-                {
-                    cout << ">>";
-                    cin >> input;
-                    cout << "PERMISSION DENIED" << endl;
-                }
-                while (true)
-                {
-                    cout << "AH AH AH! YOU DIDN\'T SAY THE MAGIC WORD!" << endl;
-                }
-            }
-            while (true)
-            {
-                cout << ">>";
-                cin >> input;
-                cout << endl;
-                if (input == "HELP")
-                {
-                    menus();
-                }
-                if (input == "QUIT")
-                {
-                    break;
-                }
-
-                // visitor center
-                if (input == "alarmstatus --vc")
-                {
-                    visitorAlarm.printMessage();
-                }
-                if (input == "unlockdoor --vc")
-                {
-                    visitorDoor.unlock();
-                }
-                if (input == "lockdoor --vc")
-                {
-                    visitorDoor.lock();
-                }
-                if (input == "camerastatus --vc")
-                {
-                    visitorCamera.displayFeed();
-                }
-                if (input == "inventorysummary --vc")
-                {
-                }
-
-                // park
-                if (input == "alarmstatus --park")
-                {
-                    parkAlarm.printMessage();
-                }
-                if (input == "camerastatus --park")
-                {
-                    parkCameras();
-                }
-                if (input == "inventorysummary --park")
-                {
-                }
-
-                // lab
-                if (input == "alarmstatus --lab")
-                {
-                    labAlarm.printMessage();
-                }
-                if (input == "unlockdoor --lab")
-                {
-                    vaultDoor.unlock();
-                }
-                if (input == "lockdoor --lab")
-                {
-                    vaultDoor.lock();
-                }
-                if (input == "camerastatus --lab")
-                {
-                    vaultCamera.displayFeed();
-                }
-                if (input == "genesummary --lab")
-                {
-                    getGenes();
-                }
-            }
-        }
-    }
-    return 0;
 }
